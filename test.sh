@@ -4,11 +4,16 @@ date >> log/sfft.log
 date >> log/cufft.log
 Thread=1
 num=0
-g++ -lm -O3 -o sfft sfft1.cpp -w
-g++ -fopenmp -lm -O3 -o fft2 fft2.cpp -w
-g++ -fopenmp -lm -O3 -o fft1 fft1.cpp -w
+# g++ -lm -O3 -o sfft sfft1.cpp -w
+# g++ -fopenmp -lm -O3 -o fft2 fft2.cpp -w
+# g++ -fopenmp -lm -O3 -o fft1 fft1.cpp -w
+
+g++ -lm -O3 -o sfft serial_fft.cpp -w
+g++ -fopenmp -lm -O3 -o fft2 OpenMP_fft_v2.cpp -w
+g++ -fopenmp -lm -O3 -o fft1 OpenMP_fft_v1.cpp -w
+
 nvcc cufft.cu -lcufft -O3 -o cufft -w
-mpicxx MPIFFT.cpp -lm -o mpifft -O3 -w
+mpicxx MPI_FFT.cpp -lm -o mpifft -O3 -w
 
 echo compile_done
 for j in 9
